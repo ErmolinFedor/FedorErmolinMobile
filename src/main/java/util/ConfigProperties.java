@@ -4,23 +4,24 @@ import setup.BaseTest;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 
 public class ConfigProperties {
-    private static java.util.Properties properties;
 
-    static {
-        properties = new java.util.Properties();
+    private ConfigProperties() {}
+
+    private static Properties readProperty(String propertyFile) {
+        Properties properties = new Properties();
         try (InputStream inputStream = BaseTest.class.getClassLoader()
-                .getResourceAsStream("config.properties")) {
+                .getResourceAsStream(propertyFile)) {
             properties.load(inputStream);
         } catch (IOException e) {
             System.out.println(e);
         }
+        return properties;
     }
 
-    private ConfigProperties() {}
-
-    public static String getProperty(String propertyName) {
-        return properties.getProperty(propertyName);
+    public static String getProperty(String propertyFile, String propertyName) {
+        return readProperty(propertyFile).getProperty(propertyName);
     }
 }

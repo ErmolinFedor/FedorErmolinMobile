@@ -2,26 +2,32 @@ package scenarios;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pageObjects.nativePages.EpamBudgetActivityPage;
+import pageObjects.nativePages.EpamRegistrationPage;
+import pageObjects.nativePages.EpamStartPage;
 import setup.BaseTest;
 import util.ConfigProperties;
 
 public class nativeMobileTests extends BaseTest{
-    @Test(groups = {"native"}, description = "This simple test just click on the Sign In button")
+    @Test(groups = {"native"}, description = "Registered new user and logged in as a new user ")
     public void simpleNativeTest() throws IllegalAccessException, NoSuchFieldException, InstantiationException, InterruptedException {
 
-        getPo().getWelement("registerButton").click();
-        getPo().getWelement("registrationEmail").sendKeys(ConfigProperties.getProperty("Email"));
-        getPo().getWelement("registrationUserName").sendKeys(ConfigProperties.getProperty("UserName"));
-        getPo().getWelement("registrationPassword").sendKeys(ConfigProperties.getProperty("Password"));
-        getPo().getWelement("registrationConfirmPassword").sendKeys(ConfigProperties.getProperty("Password"));
-        getPo().getWelement("registerNewAccountButton").click();
-        getPo().getWelement("loginEmail").sendKeys(ConfigProperties.getProperty("Email"));
-        getPo().getWelement("loginPassword").sendKeys(ConfigProperties.getProperty("Password"));
-        getPo().getWelement("signInButton").click();
-        String pageText = getPo().getWelement("pageText").getText();
-        System.out.println(pageText);
-        Assert.assertEquals(pageText, "BudgetActivity");
-        System.out.println("Simple Android native test done");
+        String email = ConfigProperties.getProperty("user.properties", "Email");
+        String userName = ConfigProperties.getProperty("user.properties", "UserName");
+        String password = ConfigProperties.getProperty("user.properties", "Password");
+        String expectedPageTitle = ConfigProperties.getProperty("nativeTest.properties", "pageTitle");
+
+        EpamStartPage epamStartPage = new EpamStartPage(getDriver());
+
+        EpamRegistrationPage epamRegistrationPage = epamStartPage.clickRegisterButton();
+        epamRegistrationPage.fillForm(email, userName, password);
+        EpamBudgetActivityPage epamBudgetActivityPage = epamStartPage.fillForm(email, password);
+
+        String pageText = epamBudgetActivityPage.getPageText();
+
+        Assert.assertEquals(pageText, expectedPageTitle);
+
+        System.out.println("Registered User Android native test done");
 
     }
 }

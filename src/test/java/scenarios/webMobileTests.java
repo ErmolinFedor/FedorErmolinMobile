@@ -1,9 +1,9 @@
 package scenarios;
 
-import org.openqa.selenium.JavascriptExecutor;;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
+import pageObjects.web.GoogleHomePage;
+import pageObjects.web.GoogleResultsPage;
 import setup.BaseTest;
 import util.ConfigProperties;
 
@@ -12,24 +12,24 @@ import static org.testng.Assert.assertTrue;
 
 public class webMobileTests extends BaseTest {
 
-    public static final String QUERY_TEXT = "EPAM";
-
-    @Test(groups = {"web"}, description = "Make sure that we've opened Google homepage")
+    @Test(groups = {"web"}, description = "Check that google search has no empty results")
     public void simpleWebTest() throws InterruptedException, IllegalAccessException, NoSuchFieldException, InstantiationException {
-        // open Google homepage
-        getDriver().get(ConfigProperties.getProperty("URL"));
+        String query = ConfigProperties.getProperty("webTest.properties","QUERY");
 
-        // Make sure that page has been loaded completely
-        new WebDriverWait(getDriver(), 10).until(
-                wd -> ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete")
-        );
+        GoogleHomePage googleHomePage = new GoogleHomePage(getDriver());
 
-        getPo().getWelement("searchField").sendKeys(QUERY_TEXT);
-        getPo().getWelement("searchButton").click();
-        List<WebElement> actualResults = getPo().getWelements("results");
-        //check that result is not empty
-        assertTrue(!actualResults.isEmpty());
+        // open Google homepage and make sure that page has been loaded completely
+        googleHomePage.open();
+        //Typing "EPAM"
+        googleHomePage.search(query);
+        //Get Results from resultsPage
+        GoogleResultsPage googleResultsPage = googleHomePage.getResultPage();
+        List<WebElement> results = googleResultsPage.getResults();
+        //Assert that list isn't empty
+        assertTrue(!results.isEmpty());
 
+        System.out.println("Android Web test done");
     }
 
 }
+

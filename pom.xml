@@ -14,7 +14,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <testng.version>7.3.0</testng.version>
         <java-client.version>7.3.0</java-client.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     </properties>
 
 
@@ -47,7 +47,14 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
-
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <source>1.8</source>-->
+<!--                    <target>1.8</target>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 

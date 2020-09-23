@@ -15,6 +15,7 @@
         <testng.version>7.3.0</testng.version>
         <java-client.version>7.3.0</java-client.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <token>61b2c053-5f23-4e58-816e-442f39871c06</token>
     </properties>
 
 
@@ -30,6 +31,11 @@
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.3.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -43,7 +49,9 @@
                         <suiteXmlFile>${suite.file}</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemPropertyVariables>
-                        <ts.appium>http://localhost:4723/wd/hub</ts.appium>
+<!--                        <ts.appium>http://localhost:4723/wd/hub</ts.appium>-->
+                        <ts.appium>https://EPM-TSTF:${token}@mobilecloud.epam.com/wd/hub</ts.appium>
+                        <token.apium>${token}</token.apium>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -78,6 +86,48 @@
                 <suite.file>./src/test/resources/webTNG.xml</suite.file>
             </properties>
         </profile>
+
+        <profile>
+            <id>cloudNative</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <suite.file>src/test/resources/cloudNativeTNG.xml</suite.file>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>cloudWeb</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <suite.file>src/test/resources/cloudWebTNG.xml</suite.file>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>iosCloudNative</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <suite.file>src/test/resources/iosCloudNativeTNG.xml</suite.file>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>iosCloudWeb</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <suite.file>src/test/resources/iosCloudWebTNG.xml</suite.file>
+            </properties>
+        </profile>
     </profiles>
+
+
 
 </project>

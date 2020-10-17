@@ -8,9 +8,10 @@ import java.util.Properties;
 
 public class ConfigProperties {
 
-    private ConfigProperties() {}
+    private static final String propertyFile = "properties/testsProperties.properties";
+    private static final Properties properties = new Properties();
 
-    private static Properties readProperty(String propertyFile) {
+    static {
         Properties properties = new Properties();
         try (InputStream inputStream = BaseTest.class.getClassLoader()
                 .getResourceAsStream(propertyFile)) {
@@ -18,10 +19,12 @@ public class ConfigProperties {
         } catch (IOException e) {
             System.out.println(e);
         }
-        return properties;
     }
 
-    public static String getProperty(String propertyFile, String propertyName) {
-        return readProperty(propertyFile).getProperty(propertyName);
+    private ConfigProperties() {}
+
+
+    public static String getProperty(String propertyName) {
+        return properties.getProperty(propertyName);
     }
 }

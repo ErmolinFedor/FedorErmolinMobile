@@ -13,10 +13,10 @@ public class nativeMobileTests extends BaseTest{
     @Test(groups = {"native"}, description = "Registered new user and logged in as a new user ")
     public void simpleNativeTest() throws IllegalAccessException, NoSuchFieldException, InstantiationException, InterruptedException {
 
-        String email = ConfigProperties.getProperty("properties/user.properties", "Email");
-        String userName = ConfigProperties.getProperty("properties/user.properties", "UserName");
-        String password = ConfigProperties.getProperty("properties/user.properties", "Password");
-        String expectedPageTitle = ConfigProperties.getProperty("properties/nativeTest.properties", "pageTitle");
+        String email = ConfigProperties.getProperty("Email");
+        String userName = ConfigProperties.getProperty("UserName");
+        String password = ConfigProperties.getProperty("Password");
+        String expectedPageTitle = ConfigProperties.getProperty("pageTitle");
 
         EpamStartPage epamStartPage = new EpamStartPage(getDriver());
 

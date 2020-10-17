@@ -14,7 +14,7 @@ public class webMobileTests extends BaseTest {
 
     @Test(groups = {"web"}, description = "Check that google search has no empty results")
     public void simpleWebTest() throws InterruptedException, IllegalAccessException, NoSuchFieldException, InstantiationException {
-        String query = ConfigProperties.getProperty("properties/webTest.properties","QUERY");
+        String query = ConfigProperties.getProperty("QUERY");
 
         GoogleHomePage googleHomePage = new GoogleHomePage(getDriver());
 

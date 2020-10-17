@@ -15,7 +15,7 @@
         <testng.version>7.3.0</testng.version>
         <java-client.version>7.3.0</java-client.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <token>61b2c053-5f23-4e58-816e-442f39871c06</token>
+        <token>${env.TOKEN}</token>
     </properties>
 
 
